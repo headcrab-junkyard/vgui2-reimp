@@ -31,35 +31,42 @@ void CPanel::Init(VPANEL vguiPanel, IClientPanel *panel)
 
 void CPanel::SetPos(VPANEL vguiPanel, int x, int y)
 {
+	mvPanels[vguiPanel]->SetPos(x, y);
 };
 
 void CPanel::GetPos(VPANEL vguiPanel, int &x, int &y)
 {
+	mvPanels[vguiPanel]->GetPos(x, y);
 };
 
 void CPanel::SetSize(VPANEL vguiPanel, int wide, int tall)
 {
+	mvPanels[vguiPanel]->SetSize(wide, tall);
 };
 
 void CPanel::GetSize(VPANEL vguiPanel, int &wide, int &tall)
 {
+	mvPanels[vguiPanel]->GetSize(wide, tall);
 };
 
 void CPanel::SetMinimumSize(VPANEL vguiPanel, int wide, int tall)
 {
+	mvPanels[vguiPanel]->SetMinimumSize(wide, tall);
 };
 
 void CPanel::GetMinimumSize(VPANEL vguiPanel, int &wide, int &tall)
 {
+	mvPanels[vguiPanel]->GetMinimumSize(wide, tall);
 };
 
 void CPanel::SetZPos(VPANEL vguiPanel, int z)
 {
+	mvPanels[vguiPanel]->SetZPos(z);
 };
 
 int CPanel::GetZPos(VPANEL vguiPanel)
 {
-	return 0;
+	return mvPanels[vguiPanel]->GetZPos();
 };
 
 void CPanel::GetAbsPos(VPANEL vguiPanel, int &x, int &y)
@@ -139,152 +146,167 @@ void CPanel::Render_SetPopupVisible(VPANEL vguiPanel, bool state)
 
 HScheme CPanel::GetScheme(VPANEL vguiPanel)
 {
-	return 0;
+	return mvPanels[vguiPanel]->GetScheme();
 };
 
 bool CPanel::IsProportional(VPANEL vguiPanel)
 {
-	return false;
+	return mvPanels[vguiPanel]->IsProportional();
 };
 
 bool CPanel::IsAutoDeleteSet(VPANEL vguiPanel)
 {
-	return false;
+	return mvPanels[vguiPanel]->IsAudoDeleteSet();
 };
 
 void CPanel::DeletePanel(VPANEL vguiPanel)
 {
+	// TODO
 };
 
 void CPanel::SetKeyBoardInputEnabled(VPANEL vguiPanel, bool state)
 {
+	mvPanels[vguiPanel]->SetKeyBoardInputEnabled(state);
 };
 
 void CPanel::SetMouseInputEnabled(VPANEL vguiPanel, bool state)
 {
+	mvPanels[vguiPanel]->SetMouseInputEnabled(state);
 };
 
 bool CPanel::IsKeyBoardInputEnabled(VPANEL vguiPanel)
 {
-	return false;
+	return mvPanels[vguiPanel]->IsKeyBoardInputEnabled();
 };
 
 bool CPanel::IsMouseInputEnabled(VPANEL vguiPanel)
 {
-	return false;
+	return mvPanels[vguiPanel]->IsMouseInputEnabled();
 };
 
 void CPanel::Solve(VPANEL vguiPanel)
 {
+	mvPanels[vguiPanel]->Solve();
 };
 
 const char *CPanel::GetName(VPANEL vguiPanel)
 {
-	return "";
+	return mvPanels[vguiPanel]->GetName();
 };
 
 const char *CPanel::GetClassName(VPANEL vguiPanel)
 {
-	return "";
+	return mvPanels[vguiPanel]->GetClassName();
 };
 
 void CPanel::SendMessage(VPANEL vguiPanel, KeyValues *params, VPANEL ifromPanel)
 {
+	mvPanels[vguiPanel]->SendMessage(params, ifromPanel);
 };
 
 void CPanel::Think(VPANEL vguiPanel)
 {
+	mvPanels[vguiPanel]->Think();
 };
 
 void CPanel::PerformApplySchemeSettings(VPANEL vguiPanel)
 {
+	mvPanels[vguiPanel]->PerformApplySchemeSettings();
 };
 
 void CPanel::PaintTraverse(VPANEL vguiPanel, bool forceRepaint, bool allowForce)
 {
+	mvPanels[vguiPanel]->PaintTraverse();
 };
 
 void CPanel::Repaint(VPANEL vguiPanel)
 {
+	mvPanels[vguiPanel]->Repaint();
 };
 
 VPANEL CPanel::IsWithinTraverse(VPANEL vguiPanel, int x, int y, bool traversePopups)
 {
-	return 0;
+	return mvPanels[vguiPanel]->IsWithinTraverse(x, y, traversePopups);
 };
 
 void CPanel::OnChildAdded(VPANEL vguiPanel, VPANEL child)
 {
+	mvPanels[vguiPanel]->OnChildAdded(child);
 };
 
 void CPanel::OnSizeChanged(VPANEL vguiPanel, int newWide, int newTall)
 {
+	mvPanels[vguiPanel]->OnSizeChanged(newWide, newTall);
 };
 
 void CPanel::InternalFocusChanged(VPANEL vguiPanel, bool lost)
 {
+	mvPanels[vguiPanel]->InternalFocusChanged(lost);
 };
 
 bool CPanel::RequestInfo(VPANEL vguiPanel, KeyValues *outputData)
 {
-	return false;
+	return mvPanels[vguiPanel]->RequestInfo(outputData);
 };
 
 void CPanel::RequestFocus(VPANEL vguiPanel, int direction)
 {
+	mvPanels[vguiPanel]->RequestFocus(direction);
 };
 
 bool CPanel::RequestFocusPrev(VPANEL vguiPanel, VPANEL existingPanel)
 {
-	return false;
+	return mvPanels[vguiPanel]->RequestFocusPrev(existingPanel);
 };
 
 bool CPanel::RequestFocusNext(VPANEL vguiPanel, VPANEL existingPanel)
 {
-	return false;
+	return mvPanels[vguiPanel]->RequestFocusNext(existingPanel);
 };
 
 VPANEL CPanel::GetCurrentKeyFocus(VPANEL vguiPanel)
 {
-	return 0;
+	return mvPanels[vguiPanel]->GetCurrentKeyFocus();
 };
 
 int CPanel::GetTabPosition(VPANEL vguiPanel)
 {
-	return 0;
+	return mvPanels[vguiPanel]->GetTabPosition();
 };
 
 SurfacePlat *CPanel::Plat(VPANEL vguiPanel)
 {
-	return nullptr;
+	return mvPanels[vguiPanel]->GetPlat();
 };
 
 void CPanel::SetPlat(VPANEL vguiPanel, SurfacePlat *Plat)
 {
+	mvPanels[vguiPanel]->SetPlat(Plat);
 };
 
 Panel *CPanel::GetPanel(VPANEL vguiPanel, const char *destinationModule)
 {
-	return nullptr;
+	return mvPanels[vguiPanel]->GetPanel(destinationModule);
 };
 
 bool CPanel::IsEnabled(VPANEL vguiPanel)
 {
-	return true;
+	return mvPanels[vguiPanel]->IsEnabled();
 };
 
 void CPanel::SetEnabled(VPANEL vguiPanel, bool state)
 {
+	mvPanels[vguiPanel]->SetEnabled(state);
 };
 
 void *CPanel::Client(VPANEL vguiPanel)
 {
-	return nullptr;
+	return mvPanels[vguiPanel]->GetClient();
 };
 
 const char *CPanel::GetModuleName(VPANEL vguiPanel)
 {
-	return "";
+	return mvPanels[vguiPanel]->GetModuleName();
 };
 
 }; // namespace vgui2
