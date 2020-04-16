@@ -42,10 +42,13 @@ public:
 	void SetSize(int wide, int tall)
 	{
 		if(wide < mnWidthMin)
-			mnWidth = wide;
+			wide = mnWidthMin;
 		
 		if(tall < mnHeightMin)
-			mnHeight = tall;
+			tall = mnHeightMin;
+		
+		mnWidth = wide;
+		mnHeight = tall;
 	};
 	
 	void GetSize(int &wide, int &tall){wide = mnWidth; tall = mnHeight;}
