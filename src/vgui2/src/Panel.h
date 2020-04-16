@@ -25,15 +25,14 @@
 namespace vgui2
 {
 
-class CPanel;
-using tPanelVec = std::vector<CPanel*>;
+class VPanel;
+using tPanelVec = std::vector<VPanel*>;
 
-// TODO: VPanel?
-class CPanel
+class VPanel
 {
 public:
-	CPanel(CPanel *apParent) : mpParent(apParent){}
-	CPanel(CPanel *apParent, const char *asName) : CPanel(apParent), msName(asName){}
+	VPanel(VPanel *apParent) : mpParent(apParent){}
+	VPanel(VPanel *apParent, const char *asName) : mpParent(apParent), msName(asName){}
 	
 	void Init(IClientPanel *panel);
 
@@ -71,7 +70,7 @@ public:
 	void SetVisible(bool state){mbVisible = state;}
 	bool IsVisible() const {return mbVisible;}
 
-	void SetParent(CPanel *newParent)
+	void SetParent(VPanel *newParent)
 	{
 		if(mpParent != newParent)
 			mpParent = newParent;
@@ -79,13 +78,13 @@ public:
 
 	int GetChildCount() const {return mvChildren.size();}
 
-	CPanel *GetChild(int index) const {return mvChildren.at(index);}
-	CPanel *GetParent() const {return mpParent;}
+	VPanel *GetChild(int index) const {return mvChildren.at(index);}
+	VPanel *GetParent() const {return mpParent;}
 
 	void MoveToFront();
 	void MoveToBack();
 
-	bool HasParent(CPanel *potentialParent) const;
+	bool HasParent(VPanel *potentialParent) const;
 
 	void SetPopup(bool state){mbPopup = state;}
 	bool IsPopup() const {return mbPopup;}
@@ -111,7 +110,7 @@ public:
 	const char *GetName() const {return msName;}
 	const char *GetClassName() const;
 
-	void SendMessage(KeyValues *params, CPanel *ifromPanel);
+	void SendMessage(KeyValues *params, VPanel *ifromPanel);
 
 	void Think();
 
@@ -120,19 +119,19 @@ public:
 	void PaintTraverse(bool forceRepaint, bool allowForce = true);
 	void Repaint();
 
-	CPanel *IsWithinTraverse(int x, int y, bool traversePopups) const;
+	VPanel *IsWithinTraverse(int x, int y, bool traversePopups) const;
 
-	void OnChildAdded(CPanel *child);
+	void OnChildAdded(VPanel *child);
 	void OnSizeChanged(int newWide, int newTall);
 
 	void InternalFocusChanged(bool lost);
 
 	bool RequestInfo(KeyValues *outputData) const;
 	void RequestFocus(int direction = 0);
-	bool RequestFocusPrev(CPanel *existingPanel);
-	bool RequestFocusNext(CPanel *existingPanel);
+	bool RequestFocusPrev(VPanel *existingPanel);
+	bool RequestFocusNext(VPanel *existingPanel);
 
-	CPanel *GetCurrentKeyFocus() const;
+	VPanel *GetCurrentKeyFocus() const;
 
 	int GetTabPosition() const;
 
@@ -150,7 +149,7 @@ public:
 private:
 	tPanelVec mvChildren;
 	
-	CPanel *mpParent{nullptr};
+	VPanel *mpParent{nullptr};
 	
 	HScheme mhScheme{-1};
 	
