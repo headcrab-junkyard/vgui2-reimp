@@ -25,6 +25,10 @@
 namespace vgui2
 {
 
+struct IClientPanel;
+class SurfacePlat;
+class Panel;
+
 class VPanel;
 using tPanelVec = std::vector<VPanel*>;
 
