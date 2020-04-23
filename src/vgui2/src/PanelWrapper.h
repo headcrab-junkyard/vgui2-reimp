@@ -25,8 +25,7 @@
 namespace vgui2
 {
 
-// BP: Looks like this is called VPanelWrapper in the original VGUI2
-class CPanelManager : public IPanel // TODO: CPanelController?
+class VPanelWrapper : public IPanel
 {
 public:
 	void Init(VPANEL vguiPanel, IClientPanel *panel) override;
