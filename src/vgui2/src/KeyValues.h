@@ -25,11 +25,11 @@
 //namespace vgui2 // TODO
 {
 
-class CKeyValues final : public vgui2::IKeyValues
+class CVGuiKeyValues final : public vgui2::IKeyValues
 {
 public:
-	CKeyValues();
-	~CKeyValues();
+	CVGuiKeyValues();
+	~CVGuiKeyValues();
 	
 	void RegisterSizeofKeyValues(int size) override;
 
