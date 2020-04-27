@@ -25,6 +25,8 @@
 namespace vgui2
 {
 
+class VPanel;
+
 class VPanelWrapper : public IPanel
 {
 public:
@@ -124,6 +126,8 @@ public:
 	void *Client(VPANEL vguiPanel) override;
 
 	const char *GetModuleName(VPANEL vguiPanel) override;
+private:
+	inline VPanel *ToVPanelPtr(VPANEL anPanel) const {return reinterpret_cast<VPanel*>(anPanel);}
 };
 
 }; // namespace vgui2
