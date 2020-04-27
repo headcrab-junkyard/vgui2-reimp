@@ -1,6 +1,6 @@
 /*
  *	This file is part of OGS Engine
- *	Copyright (C) 2018 BlackPhrase
+ *	Copyright (C) 2018, 2020 BlackPhrase
  *
  *	OGS Engine is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 /// @file
 
 #include "VGUI.h"
+#include "Panel.h" // TODO: VPanel
 
 //#define CEGUI_STATIC
 
@@ -91,7 +92,7 @@ void CVGui::ShutdownMessage(unsigned int shutdownID)
 
 VPANEL CVGui::AllocPanel()
 {
-	return 0;
+	return reinterpret_cast<VPANEL>(std::addressof(mvPanels.emplace_back()));
 };
 
 void CVGui::FreePanel(VPANEL panel)

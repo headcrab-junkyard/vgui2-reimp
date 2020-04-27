@@ -1,6 +1,6 @@
 /*
  *	This file is part of OGS Engine
- *	Copyright (C) 2016-2018 BlackPhrase
+ *	Copyright (C) 2016-2020 BlackPhrase
  *
  *	OGS Engine is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -20,10 +20,16 @@
 
 #pragma once
 
+#include <vector>
+#include <memory>
+
 #include "vgui2/IVGUI.h"
 
 namespace vgui2
 {
+
+class VPanel;
+using tPanelVec = std::vector<std::unique_ptr<VPanel>>;
 
 class CVGui : public IVGui
 {
@@ -68,6 +74,8 @@ public:
 	bool GetShouldVGuiControlSleep() override;
 private:
 	void DispatchMessages();
+	
+	tPanelVec mvPanels;
 	
 	bool mbRunning{false};
 	bool mbSleeping{false};
