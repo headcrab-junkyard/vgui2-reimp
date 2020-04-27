@@ -1,6 +1,6 @@
 /*
  *	This file is part of OGS Engine
- *	Copyright (C) 2018-2019 BlackPhrase
+ *	Copyright (C) 2018-2020 BlackPhrase
  *
  *	OGS Engine is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -18,7 +18,8 @@
 
 /// @file
 
-#include "Panel.h"
+#include "PanelWrapper.h"
+#include "Panel.h" // TODO: VPanel
 
 namespace vgui2
 {
@@ -51,12 +52,12 @@ void VPanelWrapper::GetSize(VPANEL vguiPanel, int &wide, int &tall)
 
 void VPanelWrapper::SetMinimumSize(VPANEL vguiPanel, int wide, int tall)
 {
-	mvPanels[vguiPanel]->SetMinimumSize(wide, tall);
+	ToVPanelPtr(vguiPanel)->SetMinimumSize(wide, tall);
 };
 
 void VPanelWrapper::GetMinimumSize(VPANEL vguiPanel, int &wide, int &tall)
 {
-	mvPanels[vguiPanel]->GetMinimumSize(wide, tall);
+	ToVPanelPtr(vguiPanel)->GetMinimumSize(wide, tall);
 };
 
 void VPanelWrapper::SetZPos(VPANEL vguiPanel, int z)
@@ -151,7 +152,7 @@ HScheme VPanelWrapper::GetScheme(VPANEL vguiPanel)
 
 bool VPanelWrapper::IsProportional(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->IsProportional();
+	return ToVPanelPtr(vguiPanel)->IsProportional();
 };
 
 bool VPanelWrapper::IsAutoDeleteSet(VPANEL vguiPanel)
@@ -186,7 +187,7 @@ bool VPanelWrapper::IsMouseInputEnabled(VPANEL vguiPanel)
 
 void VPanelWrapper::Solve(VPANEL vguiPanel)
 {
-	mvPanels[vguiPanel]->Solve();
+	ToVPanelPtr(vguiPanel)->Solve();
 };
 
 const char *VPanelWrapper::GetName(VPANEL vguiPanel)
@@ -196,97 +197,97 @@ const char *VPanelWrapper::GetName(VPANEL vguiPanel)
 
 const char *VPanelWrapper::GetClassName(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetClassName();
+	return ToVPanelPtr(vguiPanel)->GetClassName();
 };
 
 void VPanelWrapper::SendMessage(VPANEL vguiPanel, KeyValues *params, VPANEL ifromPanel)
 {
-	mvPanels[vguiPanel]->SendMessage(params, ifromPanel);
+	ToVPanelPtr(vguiPanel)->SendMessage(params, ifromPanel);
 };
 
 void VPanelWrapper::Think(VPANEL vguiPanel)
 {
-	mvPanels[vguiPanel]->Think();
+	ToVPanelPtr(vguiPanel)->Think();
 };
 
 void VPanelWrapper::PerformApplySchemeSettings(VPANEL vguiPanel)
 {
-	mvPanels[vguiPanel]->PerformApplySchemeSettings();
+	ToVPanelPtr(vguiPanel)->PerformApplySchemeSettings();
 };
 
 void VPanelWrapper::PaintTraverse(VPANEL vguiPanel, bool forceRepaint, bool allowForce)
 {
-	mvPanels[vguiPanel]->PaintTraverse();
+	ToVPanelPtr(vguiPanel)->PaintTraverse();
 };
 
 void VPanelWrapper::Repaint(VPANEL vguiPanel)
 {
-	mvPanels[vguiPanel]->Repaint();
+	ToVPanelPtr(vguiPanel)->Repaint();
 };
 
 VPANEL VPanelWrapper::IsWithinTraverse(VPANEL vguiPanel, int x, int y, bool traversePopups)
 {
-	return mvPanels[vguiPanel]->IsWithinTraverse(x, y, traversePopups);
+	return ToVPanelPtr(vguiPanel)->IsWithinTraverse(x, y, traversePopups);
 };
 
 void VPanelWrapper::OnChildAdded(VPANEL vguiPanel, VPANEL child)
 {
-	mvPanels[vguiPanel]->OnChildAdded(child);
+	ToVPanelPtr(vguiPanel)->OnChildAdded(child);
 };
 
 void VPanelWrapper::OnSizeChanged(VPANEL vguiPanel, int newWide, int newTall)
 {
-	mvPanels[vguiPanel]->OnSizeChanged(newWide, newTall);
+	ToVPanelPtr(vguiPanel)->OnSizeChanged(newWide, newTall);
 };
 
 void VPanelWrapper::InternalFocusChanged(VPANEL vguiPanel, bool lost)
 {
-	mvPanels[vguiPanel]->InternalFocusChanged(lost);
+	ToVPanelPtr(vguiPanel)->InternalFocusChanged(lost);
 };
 
 bool VPanelWrapper::RequestInfo(VPANEL vguiPanel, KeyValues *outputData)
 {
-	return mvPanels[vguiPanel]->RequestInfo(outputData);
+	return ToVPanelPtr(vguiPanel)->RequestInfo(outputData);
 };
 
 void VPanelWrapper::RequestFocus(VPANEL vguiPanel, int direction)
 {
-	mvPanels[vguiPanel]->RequestFocus(direction);
+	ToVPanelPtr(vguiPanel)->RequestFocus(direction);
 };
 
 bool VPanelWrapper::RequestFocusPrev(VPANEL vguiPanel, VPANEL existingPanel)
 {
-	return mvPanels[vguiPanel]->RequestFocusPrev(existingPanel);
+	return ToVPanelPtr(vguiPanel)->RequestFocusPrev(existingPanel);
 };
 
 bool VPanelWrapper::RequestFocusNext(VPANEL vguiPanel, VPANEL existingPanel)
 {
-	return mvPanels[vguiPanel]->RequestFocusNext(existingPanel);
+	return ToVPanelPtr(vguiPanel)->RequestFocusNext(existingPanel);
 };
 
 VPANEL VPanelWrapper::GetCurrentKeyFocus(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetCurrentKeyFocus();
+	return ToVPanelPtr(vguiPanel)->GetCurrentKeyFocus();
 };
 
 int VPanelWrapper::GetTabPosition(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetTabPosition();
+	return ToVPanelPtr(vguiPanel)->GetTabPosition();
 };
 
 SurfacePlat *VPanelWrapper::Plat(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetPlat();
+	return ToVPanelPtr(vguiPanel)->GetPlat();
 };
 
 void VPanelWrapper::SetPlat(VPANEL vguiPanel, SurfacePlat *Plat)
 {
-	mvPanels[vguiPanel]->SetPlat(Plat);
+	ToVPanelPtr(vguiPanel)->SetPlat(Plat);
 };
 
 Panel *VPanelWrapper::GetPanel(VPANEL vguiPanel, const char *destinationModule)
 {
-	return mvPanels[vguiPanel]->GetPanel(destinationModule);
+	return ToVPanelPtr(vguiPanel)->GetPanel(destinationModule);
 };
 
 bool VPanelWrapper::IsEnabled(VPANEL vguiPanel)
@@ -301,12 +302,12 @@ void VPanelWrapper::SetEnabled(VPANEL vguiPanel, bool state)
 
 void *VPanelWrapper::Client(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetClient();
+	return ToVPanelPtr(vguiPanel)->GetClient();
 };
 
 const char *VPanelWrapper::GetModuleName(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetModuleName();
+	return ToVPanelPtr(vguiPanel)->GetModuleName();
 };
 
 }; // namespace vgui2
