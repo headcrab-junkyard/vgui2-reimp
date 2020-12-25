@@ -1,6 +1,6 @@
 /*
  * This file is part of VGUI2
- * Copyright (C) 2020 BlackPhrase
+ * Copyright (C) 2019-2020 BlackPhrase
  *
  * VGUI2 is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,41 @@
 namespace vgui2
 {
 
+/*
+	Panel(Panel *apParent, const char *asName, IScheme::Handle anScheme);
+	
+	virtual void DeletePanel();
+	
+	void SetName(const char *asName);
+	
+	virtual void SetVisible(bool abState);
+	virtual bool IsVisible() const;
+	
+	virtual void SetParent(Panel *apParent);
+	virtual Panel *GetParent() const;
+	
+	int GetChildCount() const;
+	Panel *GetChild(int anIndex) const;
+	
+	Panel *FindChildByName(const char *asName, bool abRecurseDown = false);
+	
+	virtual void SetCursor(CursorHandle_t anCursor);
+	virtual CursorHandle_t GetCursor() const;
+	
+	virtual bool HasFocus() const;
+	
+	// Scheme access
+	virtual void SetScheme(IScheme::Handle anScheme);
+	virtual IScheme::Handle GetScheme() const;
+	
+	// Message handlers
+	virtual void OnThink();
+	
+	// Input messages
+	virtual void OnCursorEntered();
+	virtual void OnCursorExited();
+*/
+
 class Panel : public IClientPanel
 {
 public:
@@ -33,7 +68,7 @@ public:
 	Panel(Panel *apParent, const char *asName);
 	Panel(Panel *apParent, const char *asName, HScheme ahScheme);
 	
-	~Panel();
+	virtual ~Panel();
 public: // IClientPanel interface implementation
 
 	/// @return pointer to Panel's vgui VPanel interface handle
@@ -102,6 +137,9 @@ private:
 	const char *msName{""};
 	
 	HScheme mhScheme{};
+private:
+	//IVGui *mpVGUI{nullptr};
+	//IPanel *mpPanelManager{nullptr};
 };
 
 }; // namespace vgui2

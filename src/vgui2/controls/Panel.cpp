@@ -39,6 +39,11 @@ Panel::Panel(Panel *apParent, const char *asName) : Panel(apParent)
 	SetBuildModeEditable(true);
 };
 
+Panel::Panel(Panel *apParent, const char *asName, HScheme ahScheme) : Panel(apParent, asName)
+{
+	SetScheme(ahScheme);
+};
+
 Panel::~Panel()
 {
 	SetParent(reinterpret_cast<VPANEL>(nullptr));
@@ -47,9 +52,72 @@ Panel::~Panel()
 	mnPanel = 0;
 };
 
-Panel::Panel(Panel *apParent, const char *asName, HScheme ahScheme) : Panel(apParent, asName)
+void Panel::Think()
 {
-	SetScheme(ahScheme);
+};
+
+void Panel::PerformApplySchemeSettings()
+{
+};
+
+void Panel::PaintTraverse(bool bForceRepaint, bool bAllowForce)
+{
+};
+
+void Panel::Repaint()
+{
+};
+
+VPANEL Panel::IsWithinTraverse(int x, int y, bool bTraversePopups)
+{
+};
+
+void Panel::GetInset(int &top, int &left, int &right, int &bottom)
+{
+};
+
+void Panel::GetClipRect(int &x0, int &y0, int &x1, int &y1)
+{
+};
+
+void Panel::OnChildAdded(VPANEL nChild)
+{
+};
+
+void Panel::OnSizeChanged(int nNewWide, int nNewTall)
+{
+};
+
+void Panel::InternalFocusChanged(bool bLost)
+{
+};
+
+bool Panel::RequestInfo(KeyValues *pOutputData)
+{
+};
+
+void Panel::RequestFocus(int nDirection = 0)
+{
+};
+
+bool Panel::RequestFocusPrev(VPANEL nExistingPanel)
+{
+};
+
+bool Panel::RequestFocusNext(VPANEL nExistingPanel)
+{
+};
+
+void Panel::OnMessage(const KeyValues *pParams, VPANEL nFromPanel)
+{
+};
+
+VPANEL Panel::GetCurrentKeyFocus()
+{
+};
+
+int Panel::GetTabPosition()
+{
 };
 
 const char *Panel::GetName()
@@ -63,6 +131,30 @@ const char *Panel::GetName()
 const char *Panel::GetClassName()
 {
 	return "Panel";
+};
+
+HScheme Panel::GetScheme()
+{
+};
+
+bool Panel::IsProportional()
+{
+};
+
+bool Panel::IsAutoDeleteSet()
+{
+};
+
+void Panel::DeletePanel()
+{
+};
+
+void *Panel::QueryInterface(EInterfaceID nId)
+{
+};
+
+const char *Panel::GetModuleName()
+{
 };
 
 void Panel::Init(int anPosX, int anPosY, int anWidth, int anHeight)
