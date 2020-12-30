@@ -179,6 +179,14 @@ public:
 	int GetFontAscent(HFont font, wchar_t wch) override;
 
 	void SetAllowHTMLJavaScript(bool state) override;
+private:
+	VPANEL mnEmbeddedPanel{0};
+	VPANEL mnModalPanel{0};
+	
+	HCursor mhCursor{0};
+	
+	bool mbCursorLocked{false};
+	bool mbJSAllowed{false};
 };
 
 }; // namespace vgui2

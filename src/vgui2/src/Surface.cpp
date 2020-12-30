@@ -23,7 +23,7 @@
 namespace vgui2
 {
 
-EXPOSE_SINGLE_INTERFACE(CSurface, ISurface, VGUI_SURFACE_INTERFACE_VERSION)
+EXPOSE_SINGLE_INTERFACE(CSurface, ISurface, VGUI_SURFACE_INTERFACE_VERSION);
 
 void CSurface::Shutdown()
 {
@@ -35,11 +35,12 @@ void CSurface::RunFrame()
 
 VPANEL CSurface::GetEmbeddedPanel()
 {
-	return 0;
+	return mnEmbeddedPanel;
 };
 
 void CSurface::SetEmbeddedPanel(VPANEL pPanel)
 {
+	mnEmbeddedPanel = pPanel;
 };
 
 void CSurface::PushMakeCurrent(VPANEL panel, bool useInsets)
@@ -208,6 +209,7 @@ void CSurface::Invalidate(VPANEL panel)
 
 void CSurface::SetCursor(HCursor cursor)
 {
+	mhCursor = cursor;
 };
 
 bool CSurface::IsCursorVisible()
@@ -240,19 +242,22 @@ void CSurface::RestrictPaintToSinglePanel(VPANEL panel)
 
 void CSurface::SetModalPanel(VPANEL panel)
 {
+	mnModalPanel = panel;
 };
 
 VPANEL CSurface::GetModalPanel()
 {
-	return 0;
+	return mnModalPanel;
 };
 
 void CSurface::UnlockCursor()
 {
+	mbCursorLocked = false;
 };
 
 void CSurface::LockCursor()
 {
+	mbCursorLocked = true;
 };
 
 void CSurface::SetTranslateExtendedKeys(bool state)
@@ -312,6 +317,7 @@ void CSurface::SetNotifyIcon(VPANEL context, HTexture icon, VPANEL panelToReceiv
 
 void CSurface::PlaySound(const char *fileName)
 {
+	//PlaySound(fileName, nullptr, SND_ASYNC);
 };
 
 int CSurface::GetPopupCount()
@@ -390,10 +396,12 @@ bool CSurface::HasCursorPosFunctions()
 
 void CSurface::SurfaceGetCursorPos(int &x, int &y)
 {
+	//GetCursorPos(x, y);
 };
 
 void CSurface::SurfaceSetCursorPos(int x, int y)
 {
+	//SetCursorPos(x, y);
 };
 
 void CSurface::DrawTexturedPolygon(int *p, int n)
@@ -407,6 +415,7 @@ int CSurface::GetFontAscent(HFont font, wchar_t wch)
 
 void CSurface::SetAllowHTMLJavaScript(bool state)
 {
+	mbJSAllowed = state;
 };
 
 }; // namespace vgui2
