@@ -19,7 +19,7 @@
 /// @file
 
 #include "VGUI.h"
-#include "Panel.h" // TODO: VPanel
+#include "VPanel.h"
 
 //#define CEGUI_STATIC
 
@@ -92,11 +92,16 @@ void CVGui::ShutdownMessage(unsigned int shutdownID)
 
 VPANEL CVGui::AllocPanel()
 {
-	return reinterpret_cast<VPANEL>(std::addressof(mvPanels.emplace_back()));
+	return mvPanels.emplace_back(/*std::make_unique<VPanel>()*/).get()->ToVPANEL();
 };
 
 void CVGui::FreePanel(VPANEL panel)
 {
+	if(panel)
+	{
+		// TODO
+		//mvPanels[panel]
+	};
 };
 
 void CVGui::DPrintf(const char *format, ...)
@@ -139,11 +144,18 @@ void CVGui::PostMessage(VPANEL target, KeyValues *params, VPANEL from, float del
 
 HContext CVGui::CreateContext()
 {
+	//mvContexts.emplace_back(new CVGuiContext());
 	return 0;
 };
 
 void CVGui::DestroyContext(HContext context)
 {
+	if(context)
+	{
+		//delete mvContexts[context];
+		//mvContexts[context] = nullptr;
+		//mvContexts.erase(context);
+	};
 };
 
 void CVGui::AssociatePanelWithContext(HContext context, VPANEL pRoot)
