@@ -19,7 +19,7 @@
 /// @file
 
 #include "PanelWrapper.h"
-#include "Panel.h" // TODO: VPanel
+#include "VPanel.h"
 
 namespace vgui2
 {
@@ -89,17 +89,17 @@ void VPanelWrapper::GetAbsPos(VPANEL vguiPanel, int &x, int &y)
 
 void VPanelWrapper::GetClipRect(VPANEL vguiPanel, int &x0, int &y0, int &x1, int &y1)
 {
-	// TODO
+	ToVPanelPtr(vguiPanel)->GetClipRect(x0, y0, x1, y1);
 };
 
 void VPanelWrapper::SetInset(VPANEL vguiPanel, int left, int top, int right, int bottom)
 {
-	// TODO
+	ToVPanelPtr(vguiPanel)->SetInset(left, top, right, bottom);
 };
 
 void VPanelWrapper::GetInset(VPANEL vguiPanel, int &left, int &top, int &right, int &bottom)
 {
-	// TODO
+	ToVPanelPtr(vguiPanel)->GetInset(left, top, right, bottom);
 };
 
 void VPanelWrapper::SetVisible(VPANEL vguiPanel, bool state)
@@ -114,7 +114,7 @@ bool VPanelWrapper::IsVisible(VPANEL vguiPanel)
 
 void VPanelWrapper::SetParent(VPANEL vguiPanel, VPANEL newParent)
 {
-	// TODO
+	ToVPanelPtr(vguiPanel)->mpParent = ToVPanelPtr(newParent);
 };
 
 int VPanelWrapper::GetChildCount(VPANEL vguiPanel)
@@ -124,27 +124,27 @@ int VPanelWrapper::GetChildCount(VPANEL vguiPanel)
 
 VPANEL VPanelWrapper::GetChild(VPANEL vguiPanel, int index)
 {
-	return 0;
+	return ToVPanelPtr(vguiPanel)->GetChild(index)->ToVPANEL();
 };
 
 VPANEL VPanelWrapper::GetParent(VPANEL vguiPanel)
 {
-	return 0;
+	return ToVPanelPtr(vguiPanel)->mpParent->ToVPANEL();
 };
 
 void VPanelWrapper::MoveToFront(VPANEL vguiPanel)
 {
-	// TODO
+	ToVPanelPtr(vguiPanel)->MoveToFront();
 };
 
 void VPanelWrapper::MoveToBack(VPANEL vguiPanel)
 {
-	// TODO
+	ToVPanelPtr(vguiPanel)->MoveToBack();
 };
 
 bool VPanelWrapper::HasParent(VPANEL vguiPanel, VPANEL potentialParent)
 {
-	return false;
+	return ToVPanelPtr(vguiPanel)->HasParent(ToVPanelPtr(potentialParent));
 };
 
 bool VPanelWrapper::IsPopup(VPANEL vguiPanel)
@@ -159,12 +159,12 @@ void VPanelWrapper::SetPopup(VPANEL vguiPanel, bool state)
 
 bool VPanelWrapper::Render_GetPopupVisible(VPANEL vguiPanel)
 {
-	return false;
+	return ToVPanelPtr(vguiPanel)->Render_GetPopupVisible();
 };
 
 void VPanelWrapper::Render_SetPopupVisible(VPANEL vguiPanel, bool state)
 {
-	// TODO
+	ToVPanelPtr(vguiPanel)->Render_SetPopupVisible(state);
 };
 
 HScheme VPanelWrapper::GetScheme(VPANEL vguiPanel)
@@ -184,7 +184,7 @@ bool VPanelWrapper::IsAutoDeleteSet(VPANEL vguiPanel)
 
 void VPanelWrapper::DeletePanel(VPANEL vguiPanel)
 {
-	// TODO
+	ToVPanelPtr(vguiPanel)->DeletePanel(); // TODO
 };
 
 void VPanelWrapper::SetKeyBoardInputEnabled(VPANEL vguiPanel, bool state)
@@ -239,7 +239,7 @@ void VPanelWrapper::PerformApplySchemeSettings(VPANEL vguiPanel)
 
 void VPanelWrapper::PaintTraverse(VPANEL vguiPanel, bool forceRepaint, bool allowForce)
 {
-	ToVPanelPtr(vguiPanel)->PaintTraverse();
+	ToVPanelPtr(vguiPanel)->PaintTraverse(forceRepaint, allowForce);
 };
 
 void VPanelWrapper::Repaint(VPANEL vguiPanel)
