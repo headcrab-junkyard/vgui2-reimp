@@ -119,7 +119,7 @@ public:
 	const char *GetName() const {return msName;}
 	const char *GetClassName() const;
 
-	void SendMessage(KeyValues *params, VPanel *ifromPanel);
+	void SendMessage(KeyValues *params, VPANEL ifromPanel);
 
 	void Think();
 
@@ -130,15 +130,15 @@ public:
 
 	VPANEL IsWithinTraverse(int x, int y, bool traversePopups) const;
 
-	void OnChildAdded(VPanel *child);
+	void OnChildAdded(VPANEL child);
 	void OnSizeChanged(int newWide, int newTall);
 
 	void InternalFocusChanged(bool lost);
 
 	bool RequestInfo(KeyValues *outputData) const;
 	void RequestFocus(int direction = 0);
-	bool RequestFocusPrev(VPanel *existingPanel);
-	bool RequestFocusNext(VPanel *existingPanel);
+	bool RequestFocusPrev(VPANEL existingPanel);
+	bool RequestFocusNext(VPANEL existingPanel);
 
 	VPANEL GetCurrentKeyFocus() const;
 
@@ -152,13 +152,16 @@ public:
 	void SetEnabled(bool state){mbEnabled = state;}
 	bool IsEnabled() const {return mbEnabled;}
 	
-	void *Client() const;
+	void *GetClient() const;
 
 	const char *GetModuleName() const;
+	
+	inline VPANEL ToVPANEL() const {return reinterpret_cast<uintptr_t>(this);}
 //private:
 	tPanelVec mvChildren;
 	
 	VPanel *mpParent{nullptr};
+	IClientPanel *mpClientPanel{nullptr};
 	
 	HScheme mhScheme{0};
 	
