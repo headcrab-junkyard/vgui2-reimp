@@ -22,7 +22,7 @@
 #pragma once
 
 #include "VGUI.h"
-#include "interface.h"
+#include "tier1/interface.h"
 
 #ifdef SendMessage
 #undef SendMessage

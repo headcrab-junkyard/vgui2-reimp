@@ -1,6 +1,6 @@
 /*
  * This file is part of OGS Engine
- * Copyright (C) 2018 BlackPhrase
+ * Copyright (C) 2018-2019 BlackPhrase
  *
  * OGS Engine is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #pragma once
 
 #include "VGUI.h"
-#include "interface.h"
+#include "tier1/interface.h"
 
 const char VGUI_LOCALIZE_INTERFACE_VERSION[] = "VGUI_Localize003";
 
