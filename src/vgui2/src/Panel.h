@@ -1,19 +1,19 @@
 /*
- *	This file is part of OGS Engine
- *	Copyright (C) 2018-2019 BlackPhrase
+ * This file is part of OGS Engine
+ * Copyright (C) 2018-2020 BlackPhrase
  *
- *	OGS Engine is free software: you can redistribute it and/or modify
- *	it under the terms of the GNU General Public License as published by
- *	the Free Software Foundation, either version 3 of the License, or
- *	(at your option) any later version.
+ * OGS Engine is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *	OGS Engine is distributed in the hope that it will be useful,
- *	but WITHOUT ANY WARRANTY; without even the implied warranty of
- *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- *	GNU General Public License for more details.
+ * OGS Engine is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
  *
- *	You should have received a copy of the GNU General Public License
- *	along with OGS Engine.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with OGS Engine.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /// @file
@@ -21,6 +21,8 @@
 #pragma once
 
 #include <vector>
+
+#include "VGUI.h"
 
 namespace vgui2
 {
@@ -30,7 +32,7 @@ class SurfacePlat;
 class Panel;
 
 class VPanel;
-using tPanelVec = std::vector<VPanel*>;
+//using tPanelVec = std::vector<VPanel*>;
 
 class VPanel
 {
@@ -85,7 +87,7 @@ public:
 
 	int GetChildCount() const {return mvChildren.size();}
 
-	VPanel *GetChild(int index) const {return mvChildren.at(index);}
+	VPanel *GetChild(int index) const {return mvChildren.at(index).get();}
 	VPanel *GetParent() const {return mpParent;}
 
 	void MoveToFront();
@@ -126,7 +128,7 @@ public:
 	void PaintTraverse(bool forceRepaint, bool allowForce = true);
 	void Repaint();
 
-	VPanel *IsWithinTraverse(int x, int y, bool traversePopups) const;
+	VPANEL IsWithinTraverse(int x, int y, bool traversePopups) const;
 
 	void OnChildAdded(VPanel *child);
 	void OnSizeChanged(int newWide, int newTall);
@@ -138,7 +140,7 @@ public:
 	bool RequestFocusPrev(VPanel *existingPanel);
 	bool RequestFocusNext(VPanel *existingPanel);
 
-	VPanel *GetCurrentKeyFocus() const;
+	VPANEL GetCurrentKeyFocus() const;
 
 	int GetTabPosition() const;
 
@@ -153,12 +155,12 @@ public:
 	void *Client() const;
 
 	const char *GetModuleName() const;
-private:
+//private:
 	tPanelVec mvChildren;
 	
 	VPanel *mpParent{nullptr};
 	
-	HScheme mhScheme{-1};
+	HScheme mhScheme{0};
 	
 	const char *msName{""};
 	

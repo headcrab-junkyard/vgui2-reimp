@@ -28,26 +28,37 @@ EXPOSE_SINGLE_INTERFACE(VPanelWrapper, IPanel, VGUI_PANEL_INTERFACE_VERSION);
 
 void VPanelWrapper::Init(VPANEL vguiPanel, IClientPanel *panel)
 {
+	ToVPanelPtr(vguiPanel)->Init(panel);
 };
 
 void VPanelWrapper::SetPos(VPANEL vguiPanel, int x, int y)
 {
-	mvPanels[vguiPanel]->SetPos(x, y);
+	ToVPanelPtr(vguiPanel)->mnXPos = x;
+	ToVPanelPtr(vguiPanel)->mnYPos = y;
 };
 
 void VPanelWrapper::GetPos(VPANEL vguiPanel, int &x, int &y)
 {
-	mvPanels[vguiPanel]->GetPos(x, y);
+	x = ToVPanelPtr(vguiPanel)->mnXPos;
+	y = ToVPanelPtr(vguiPanel)->mnYPos;
 };
 
 void VPanelWrapper::SetSize(VPANEL vguiPanel, int wide, int tall)
 {
-	mvPanels[vguiPanel]->SetSize(wide, tall);
+	if(wide < ToVPanelPtr(vguiPanel)->mnWidthMin)
+		wide = ToVPanelPtr(vguiPanel)->mnWidthMin;
+	
+	if(tall < ToVPanelPtr(vguiPanel)->mnHeightMin)
+		tall = ToVPanelPtr(vguiPanel)->mnHeightMin;
+	
+	ToVPanelPtr(vguiPanel)->mnWidth = wide;
+	ToVPanelPtr(vguiPanel)->mnHeight = tall;
 };
 
 void VPanelWrapper::GetSize(VPANEL vguiPanel, int &wide, int &tall)
 {
-	mvPanels[vguiPanel]->GetSize(wide, tall);
+	wide = ToVPanelPtr(vguiPanel)->mnWidth;
+	tall = ToVPanelPtr(vguiPanel)->mnHeight;
 };
 
 void VPanelWrapper::SetMinimumSize(VPANEL vguiPanel, int wide, int tall)
@@ -62,46 +73,53 @@ void VPanelWrapper::GetMinimumSize(VPANEL vguiPanel, int &wide, int &tall)
 
 void VPanelWrapper::SetZPos(VPANEL vguiPanel, int z)
 {
-	mvPanels[vguiPanel]->SetZPos(z);
+	ToVPanelPtr(vguiPanel)->mnZPos = z;
 };
 
 int VPanelWrapper::GetZPos(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetZPos();
+	return ToVPanelPtr(vguiPanel)->mnZPos;
 };
 
 void VPanelWrapper::GetAbsPos(VPANEL vguiPanel, int &x, int &y)
 {
+	x = ToVPanelPtr(vguiPanel)->mnXPos;
+	y = ToVPanelPtr(vguiPanel)->mnYPos;
 };
 
 void VPanelWrapper::GetClipRect(VPANEL vguiPanel, int &x0, int &y0, int &x1, int &y1)
 {
+	// TODO
 };
 
 void VPanelWrapper::SetInset(VPANEL vguiPanel, int left, int top, int right, int bottom)
 {
+	// TODO
 };
 
 void VPanelWrapper::GetInset(VPANEL vguiPanel, int &left, int &top, int &right, int &bottom)
 {
+	// TODO
 };
 
 void VPanelWrapper::SetVisible(VPANEL vguiPanel, bool state)
 {
+	ToVPanelPtr(vguiPanel)->mbVisible = state;
 };
 
 bool VPanelWrapper::IsVisible(VPANEL vguiPanel)
 {
-	return false;
+	return ToVPanelPtr(vguiPanel)->mbVisible;
 };
 
 void VPanelWrapper::SetParent(VPANEL vguiPanel, VPANEL newParent)
 {
+	// TODO
 };
 
 int VPanelWrapper::GetChildCount(VPANEL vguiPanel)
 {
-	return 0;
+	return ToVPanelPtr(vguiPanel)->mvChildren.size();
 };
 
 VPANEL VPanelWrapper::GetChild(VPANEL vguiPanel, int index)
@@ -116,10 +134,12 @@ VPANEL VPanelWrapper::GetParent(VPANEL vguiPanel)
 
 void VPanelWrapper::MoveToFront(VPANEL vguiPanel)
 {
+	// TODO
 };
 
 void VPanelWrapper::MoveToBack(VPANEL vguiPanel)
 {
+	// TODO
 };
 
 bool VPanelWrapper::HasParent(VPANEL vguiPanel, VPANEL potentialParent)
@@ -129,11 +149,12 @@ bool VPanelWrapper::HasParent(VPANEL vguiPanel, VPANEL potentialParent)
 
 bool VPanelWrapper::IsPopup(VPANEL vguiPanel)
 {
-	return false;
+	return ToVPanelPtr(vguiPanel)->mbPopup;
 };
 
 void VPanelWrapper::SetPopup(VPANEL vguiPanel, bool state)
 {
+	ToVPanelPtr(vguiPanel)->mbPopup = state;
 };
 
 bool VPanelWrapper::Render_GetPopupVisible(VPANEL vguiPanel)
@@ -143,11 +164,12 @@ bool VPanelWrapper::Render_GetPopupVisible(VPANEL vguiPanel)
 
 void VPanelWrapper::Render_SetPopupVisible(VPANEL vguiPanel, bool state)
 {
+	// TODO
 };
 
 HScheme VPanelWrapper::GetScheme(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetScheme();
+	return ToVPanelPtr(vguiPanel)->mhScheme;
 };
 
 bool VPanelWrapper::IsProportional(VPANEL vguiPanel)
@@ -157,7 +179,7 @@ bool VPanelWrapper::IsProportional(VPANEL vguiPanel)
 
 bool VPanelWrapper::IsAutoDeleteSet(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->IsAudoDeleteSet();
+	return ToVPanelPtr(vguiPanel)->mbAutoDelete;
 };
 
 void VPanelWrapper::DeletePanel(VPANEL vguiPanel)
@@ -167,22 +189,22 @@ void VPanelWrapper::DeletePanel(VPANEL vguiPanel)
 
 void VPanelWrapper::SetKeyBoardInputEnabled(VPANEL vguiPanel, bool state)
 {
-	mvPanels[vguiPanel]->SetKeyBoardInputEnabled(state);
+	ToVPanelPtr(vguiPanel)->mbKeyboardInputEnabled = state;
 };
 
 void VPanelWrapper::SetMouseInputEnabled(VPANEL vguiPanel, bool state)
 {
-	mvPanels[vguiPanel]->SetMouseInputEnabled(state);
+	ToVPanelPtr(vguiPanel)->mbMouseInputEnabled = state;
 };
 
 bool VPanelWrapper::IsKeyBoardInputEnabled(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->IsKeyBoardInputEnabled();
+	return ToVPanelPtr(vguiPanel)->mbKeyboardInputEnabled;
 };
 
 bool VPanelWrapper::IsMouseInputEnabled(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->IsMouseInputEnabled();
+	return ToVPanelPtr(vguiPanel)->mbMouseInputEnabled;
 };
 
 void VPanelWrapper::Solve(VPANEL vguiPanel)
@@ -192,7 +214,7 @@ void VPanelWrapper::Solve(VPANEL vguiPanel)
 
 const char *VPanelWrapper::GetName(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->GetName();
+	return ToVPanelPtr(vguiPanel)->msName;
 };
 
 const char *VPanelWrapper::GetClassName(VPANEL vguiPanel)
@@ -292,12 +314,12 @@ Panel *VPanelWrapper::GetPanel(VPANEL vguiPanel, const char *destinationModule)
 
 bool VPanelWrapper::IsEnabled(VPANEL vguiPanel)
 {
-	return mvPanels[vguiPanel]->IsEnabled();
+	return ToVPanelPtr(vguiPanel)->mbEnabled;
 };
 
 void VPanelWrapper::SetEnabled(VPANEL vguiPanel, bool state)
 {
-	mvPanels[vguiPanel]->SetEnabled(state);
+	ToVPanelPtr(vguiPanel)->mbEnabled = state;
 };
 
 void *VPanelWrapper::Client(VPANEL vguiPanel)
