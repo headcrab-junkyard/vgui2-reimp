@@ -1,6 +1,6 @@
 /*
  *	This file is part of OGS Engine
- *	Copyright (C) 2018 BlackPhrase
+ *	Copyright (C) 2018-2019, 2021 BlackPhrase
  *
  *	OGS Engine is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -22,6 +22,108 @@
 
 namespace vgui2
 {
+
+CInputInternal gInputInternal;
+
+EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CInputInternal, IInput, VGUI_INPUT_INTERFACE_VERSION, gInputInternal);
+
+EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CInputInternal, IInputInternal, VGUI_INPUTINTERNAL_INTERFACE_VERSION, gInputInternal);
+
+void CInputInternal::SetMouseFocus(VPANEL newMouseFocus)
+{
+};
+
+void CInputInternal::SetMouseCapture(VPANEL panel)
+{
+};
+
+void CInputInternal::GetKeyCodeText(KeyCode code, char *buf, int buflen)
+{
+};
+
+VPANEL CInputInternal::GetFocus()
+{
+	return 0;
+};
+
+VPANEL CICInputInternalput::GetMouseOver()
+{
+	return 0;
+};
+
+void CInputInternal::SetCursorPos(int x, int y)
+{
+};
+
+void CInputInternal::GetCursorPos(int &x, int &y)
+{
+};
+
+bool CInputInternal::WasMousePressed(MouseCode code)
+{
+	return false;
+};
+
+bool CInputInternal::WasMouseDoublePressed(MouseCode code)
+{
+	return false;
+};
+
+bool CInputInternal::IsMouseDown(MouseCode code)
+{
+	return false;
+};
+
+void CInputInternal::SetCursorOveride(HCursor cursor)
+{
+};
+
+HCursor CInputInternal::GetCursorOveride()
+{
+	return 0;
+};
+
+bool CInputInternal::WasMouseReleased(MouseCode code)
+{
+	return false;
+};
+
+bool CInputInternal::WasKeyPressed(KeyCode code)
+{
+	return false;
+};
+
+bool CInputInternal::IsKeyDown(KeyCode code)
+{
+	return false;
+};
+
+bool CInputInternal::WasKeyTyped(KeyCode code)
+{
+	return false;
+};
+
+bool CInputInternal::WasKeyReleased(KeyCode code)
+{
+	return false;
+};
+
+VPANEL CInputInternal::GetAppModalSurface()
+{
+	return 0;
+};
+
+void CInputInternal::SetAppModalSurface(VPANEL panel)
+{
+};
+
+void CInputInternal::ReleaseAppModalSurface()
+{
+};
+
+void CInputInternal::GetCursorPosition(int &x, int &y)
+{
+};
 
 void CInputInternal::RunFrame()
 {
