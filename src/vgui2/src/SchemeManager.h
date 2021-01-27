@@ -1,6 +1,6 @@
 /*
  *	This file is part of OGS Engine
- *	Copyright (C) 2016-2018 BlackPhrase
+ *	Copyright (C) 2016-2018, 2021 BlackPhrase
  *
  *	OGS Engine is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -20,30 +20,41 @@
 
 #pragma once
 
+#include <vector>
+
 #include "vgui2/IScheme.h"
 
 namespace vgui2
 {
 
+class CScheme;
+using tSchemeVec = std::vector<CScheme*>;
+
 class CSchemeManager : public ISchemeManager
 {
 public:
-	HScheme LoadSchemeFromFile(const char *fileName, const char *tag) override;
+	//~CSchemeManager();
+	
+	HScheme LoadSchemeFromFile(const char *asFileName, const char *asTag) override;
 
 	void ReloadSchemes() override;
 
 	HScheme GetDefaultScheme() override;
-	HScheme GetScheme(const char *tag) override;
+	HScheme GetScheme(const char *asTag) override;
 
-	IImage *GetImage(const char *imageName, bool hardwareFiltered) override;
-	HTexture GetImageID(const char *imageName, bool hardwareFiltered) override;
+	IImage *GetImage(const char *asImageName, bool abHardwareFiltered) override;
+	HTexture GetImageID(const char *asImageName, bool abHardwareFiltered) override;
 
-	IScheme *GetIScheme(HScheme scheme) override;
+	IScheme *GetIScheme(HScheme ahScheme) override;
 
-	void Shutdown(bool full = true) override;
+	void Shutdown(bool abFull = true) override;
 
-	int GetProportionalScaledValue(int normalizedValue) override;
-	int GetProportionalNormalizedValue(int scaledValue) override;
+	int GetProportionalScaledValue(int anNormalizedValue) override;
+	int GetProportionalNormalizedValue(int anScaledValue) override;
+private:
+	void UnloadSchemes();
+private:
+	tSchemeVec mvSchemes;
 };
 
 }; // namespace vgui2

@@ -1,6 +1,6 @@
 /*
  *	This file is part of OGS Engine
- *	Copyright (C) 2018-2019 BlackPhrase
+ *	Copyright (C) 2018-2019, 2021 BlackPhrase
  *
  *	OGS Engine is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -23,54 +23,62 @@
 namespace vgui2
 {
 
-EXPOSE_SINGLE_INTERFACE(CSchemeManager, ISchemeManager, VGUI_SCHEME_INTERFACE_VERSION)
+EXPOSE_SINGLE_INTERFACE(CSchemeManager, ISchemeManager, VGUI_SCHEME_INTERFACE_VERSION);
 
-HScheme CSchemeManager::LoadSchemeFromFile(const char *fileName, const char *tag)
+HScheme CSchemeManager::LoadSchemeFromFile(const char *asFileName, const char *asTag)
 {
-	return 0;
+	return 0; // TODO
 };
 
 void CSchemeManager::ReloadSchemes()
 {
+	for(It : mvSchemes)
+		It->Reload();
 };
 
 HScheme CSchemeManager::GetDefaultScheme()
 {
-	return 0;
+	return mvSchemes.at(0);
 };
 
-HScheme CSchemeManager::GetScheme(const char *tag)
+HScheme CSchemeManager::GetScheme(const char *asTag)
 {
-	return 0;
+	return 0; // TODO
 };
 
-IImage *CSchemeManager::GetImage(const char *imageName, bool hardwareFiltered)
+IImage *CSchemeManager::GetImage(const char *asImageName, bool abHardwareFiltered)
 {
-	return nullptr;
+	return nullptr; // TODO
 };
 
-HTexture CSchemeManager::GetImageID(const char *imageName, bool hardwareFiltered)
+HTexture CSchemeManager::GetImageID(const char *asImageName, bool abHardwareFiltered)
 {
-	return 0;
+	return 0; // TODO
 };
 
-IScheme *CSchemeManager::GetIScheme(HScheme scheme)
+IScheme *CSchemeManager::GetIScheme(HScheme ahScheme)
 {
-	return nullptr;
+	return mvSchemes.at(ahScheme);
 };
 
-void CSchemeManager::Shutdown(bool full)
+void CSchemeManager::Shutdown(bool abFull)
 {
+	UnloadSchemes();
 };
 
-int CSchemeManager::GetProportionalScaledValue(int normalizedValue)
+int CSchemeManager::GetProportionalScaledValue(int anNormalizedValue)
 {
-	return 0;
+	return 0; // TODO
 };
 
-int CSchemeManager::GetProportionalNormalizedValue(int scaledValue)
+int CSchemeManager::GetProportionalNormalizedValue(int anScaledValue)
 {
-	return 0;
+	return 0; // TODO
+};
+
+void CSchemeManager::UnloadSchemes()
+{
+	// TODO
 };
 
 }; // namespace vgui2
