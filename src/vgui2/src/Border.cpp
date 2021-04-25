@@ -1,6 +1,6 @@
 /*
  * This file is part of OGS Engine
- * Copyright (C) 2018, 2020 BlackPhrase
+ * Copyright (C) 2018, 2020-2021 BlackPhrase
  *
  * OGS Engine is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,10 +37,18 @@ void Border::Paint(int x0, int y0, int x1, int y1, int breakSide, int breakStart
 
 void Border::SetInset(int left, int top, int right, int bottom)
 {
+	mvInsets[0] = left;
+	mvInsets[1] = top;
+	mvInsets[2] = right;
+	mvInsets[3] = bottom;
 };
 
 void Border::GetInset(int &left, int &top, int &right, int &bottom)
 {
+	left = mvInsets[0];
+	top = mvInsets[1];
+	right = mvInsets[2];
+	bottom = mvInsets[3];
 };
 
 void Border::AddLine(sides_e side, Color color, int startOffset, int endOffset)
@@ -57,11 +65,12 @@ void Border::ParseSideSettings(int side_index, KeyValues *inResourceData, ISchem
 
 const char *Border::GetName()
 {
-	return "";
+	return msName;
 };
 
-void Border::SetName(const char *name)
+void Border::SetName(const char *asName)
 {
+	msName = asName;
 };
 
 }; // namespace vgui2

@@ -94,6 +94,19 @@ public:
 	bool IsChildOfModalPanel(VPANEL panel) override;
 
 	void ResetInputContext(HInputContext context) override;
+private:
+	bool mvOldKeys[256]{};
+	bool mvCurKeys[256]{};
+	
+	bool mvOldButtons[3]{};
+	bool mvCurButtons[3]{};
+	
+	VPANEL mnModalSurface{0};
+	VPANEL mnPanelInFocus{0};
+	VPANEL mnMouseFocus{0};
+	VPANEL mnMouseCapture{0};
+	
+	HCursor mhCursorOverride{0};
 };
 
 }; // namespace vgui2

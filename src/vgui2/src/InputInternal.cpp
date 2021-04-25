@@ -31,10 +31,12 @@ EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CInputInternal, IInputInternal, VGUI_INPUTINTE
 
 void CInputInternal::SetMouseFocus(VPANEL newMouseFocus)
 {
+	mnMouseFocus = newMouseFocus;
 };
 
 void CInputInternal::SetMouseCapture(VPANEL panel)
 {
+	mnMouseCapture = panel;
 };
 
 void CInputInternal::GetKeyCodeText(KeyCode code, char *buf, int buflen)
@@ -43,10 +45,10 @@ void CInputInternal::GetKeyCodeText(KeyCode code, char *buf, int buflen)
 
 VPANEL CInputInternal::GetFocus()
 {
-	return 0;
+	return mnPanelInFocus;
 };
 
-VPANEL CICInputInternalput::GetMouseOver()
+VPANEL CInputInternal::GetMouseOver()
 {
 	return 0;
 };
@@ -61,7 +63,7 @@ void CInputInternal::GetCursorPos(int &x, int &y)
 
 bool CInputInternal::WasMousePressed(MouseCode code)
 {
-	return false;
+	return !mvOldButtons[code] && mvCurButtons[code];
 };
 
 bool CInputInternal::WasMouseDoublePressed(MouseCode code)
@@ -71,50 +73,52 @@ bool CInputInternal::WasMouseDoublePressed(MouseCode code)
 
 bool CInputInternal::IsMouseDown(MouseCode code)
 {
-	return false;
+	return mvOldButtons[code] && mvCurButtons[code];
 };
 
 void CInputInternal::SetCursorOveride(HCursor cursor)
 {
+	mhCursorOverride = cursor;
 };
 
 HCursor CInputInternal::GetCursorOveride()
 {
-	return 0;
+	return mhCursorOverride;
 };
 
 bool CInputInternal::WasMouseReleased(MouseCode code)
 {
-	return false;
+	return mvOldButtons[code] && !mvCurButtons[code];
 };
 
 bool CInputInternal::WasKeyPressed(KeyCode code)
 {
-	return false;
+	return !mvOldKeys[code] && mvCurKeys[code];
 };
 
 bool CInputInternal::IsKeyDown(KeyCode code)
 {
-	return false;
+	return mvOldKeys[code] && mvCurKeys[code]; // TODO
 };
 
 bool CInputInternal::WasKeyTyped(KeyCode code)
 {
-	return false;
+	return mvCurKeys[code]; // TODO
 };
 
 bool CInputInternal::WasKeyReleased(KeyCode code)
 {
-	return false;
+	return mvOldKeys[code] && !mvCurKeys[code];
 };
 
 VPANEL CInputInternal::GetAppModalSurface()
 {
-	return 0;
+	return mnModalSurface;
 };
 
 void CInputInternal::SetAppModalSurface(VPANEL panel)
 {
+	mnModalSurface = panel;
 };
 
 void CInputInternal::ReleaseAppModalSurface()
@@ -195,6 +199,7 @@ void CInputInternal::AssociatePanelWithInputContext(HInputContext context, VPANE
 
 void CInputInternal::ActivateInputContext(HInputContext context)
 {
+	//mvContexts[context]->Activate();
 };
 
 VPANEL CInputInternal::GetMouseCapture()
@@ -209,6 +214,7 @@ bool CInputInternal::IsChildOfModalPanel(VPANEL panel)
 
 void CInputInternal::ResetInputContext(HInputContext context)
 {
+	//mvContexts[context]->Reset();
 };
 
 }; // namespace vgui2

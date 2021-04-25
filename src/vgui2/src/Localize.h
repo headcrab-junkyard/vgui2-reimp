@@ -1,6 +1,6 @@
 /*
  * This file is part of OGS Engine
- * Copyright (C) 2016-2020 BlackPhrase
+ * Copyright (C) 2016-2021 BlackPhrase
  *
  * OGS Engine is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,10 +29,37 @@
 namespace vgui2
 {
 
+struct SLocalizedString
+{
+	SLocalizedString() = default;
+	SLocalizedString(const char *asTokenName, wchar_t *asValue, const char *asFileName) : msName(asTokenName), msValue(asValue), msFileName(asFileName){}
+	
+	const char *msName{""};
+	wchar_t *msValue{nullptr};
+	const char *msFileName{""};
+	
+	SLocalizedString *mpNext{nullptr};
+};
+
+class CLocalizationFile
+{
+public:
+	void Reload();
+//private:
+	std::string msName{""};
+	//std::unordered_map<std::string, std::wstring> mTokenValueMap;
+	std::unordered_map<std::string, wchar_t*> mTokenValueMap;
+};
+
+using tLocFileVec = std::vector<CLocalizationFile*>;
+
 class CLocalize : public ILocalize
 {
 public:
-	bool AddFile(IFileSystem *fileSystem, const char *fileName) override;
+	CLocalize();
+	~CLocalize();
+	
+	bool AddFile(IFileSystem *apFileSystem, const char *asFileName) override;
 
 	void RemoveAll() override;
 
@@ -45,38 +72,34 @@ public:
 
 	void ConstructString(wchar_t *unicodeOuput, int unicodeBufferSizeInBytes, wchar_t *formatString, int numFormatParameters, ...) override;
 
-	const char *GetNameByIndex(StringIndex_t index) override;
-	wchar_t *GetValueByIndex(StringIndex_t index) override;
+	const char *GetNameByIndex(StringIndex_t anIndex) override;
+	wchar_t *GetValueByIndex(StringIndex_t anIndex) override;
 
 	StringIndex_t GetFirstStringIndex() override;
-	StringIndex_t GetNextStringIndex(StringIndex_t index) override;
+	StringIndex_t GetNextStringIndex(StringIndex_t anIndex) override;
 
-	void AddString(const char *tokenName, wchar_t *unicodeString, const char *fileName) override;
+	void AddString(const char *tokenName, wchar_t *unicodeString, const char *asFileName) override;
 
-	void SetValueByIndex(StringIndex_t index, wchar_t *newValue) override;
+	void SetValueByIndex(StringIndex_t anIndex, wchar_t *newValue) override;
 
-	bool SaveToFile(IFileSystem *fileSystem, const char *fileName) override;
+	bool SaveToFile(IFileSystem *apFileSystem, const char *asFileName) override;
 
 	int GetLocalizationFileCount() override;
 
-	const char *GetLocalizationFileName(int index) override;
-	const char *GetFileNameByIndex(StringIndex_t index) override;
+	const char *GetLocalizationFileName(int anIndex) override;
+	const char *GetFileNameByIndex(StringIndex_t anIndex) override;
 
 	void ReloadLocalizationFiles() override;
 
-	// THIS IS REALLY BAD SINCE OVERLOADED FUNCS ORDER IN VIRTUAL INTERFACES CAN BE DIFFERENT ON VARIOUS COMPILERS VALVE!!!!!!!!!!!!
+	// BP: THIS IS REALLY BAD SINCE OVERLOADED FUNCS ORDER IN VIRTUAL INTERFACES CAN BE DIFFERENT ON VARIOUS COMPILERS VALVE!!!!!!!!!!!!
 	void ConstructString(wchar_t *unicodeOutput, int unicodeBufferSizeInBytes, const char *tokenName, KeyValues *localizationVariables) override;
 	void ConstructString(wchar_t *unicodeOutput, int unicodeBufferSizeInBytes, StringIndex_t unlocalizedTextSymbol, KeyValues *localizationVariables) override;
 private:
-	struct LocalizationFile
-	{
-		std::string msName{""};
-		std::unordered_map<std::string, std::wstring> mTokenValueMap;
-	};
+	tLocFileVec mvLocFiles;
 	
-	std::vector<LocalizationFile> mvLocFiles;
+	CLocalizationFile *mpCurrentLocFile{nullptr};
 	
-	//LocalizationFile &mCurrentLocFile;
+	SLocalizedString *mpLocStringHead{nullptr};
 };
 
 }; // namespace vgui2

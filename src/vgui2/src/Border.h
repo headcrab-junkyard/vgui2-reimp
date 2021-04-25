@@ -1,6 +1,6 @@
 /*
  * This file is part of OGS Engine
- * Copyright (C) 2016-2020 BlackPhrase
+ * Copyright (C) 2016-2021 BlackPhrase
  *
  * OGS Engine is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,10 @@ public:
 
 	const char *GetName() override;
 	void SetName(const char *name) override;
+private:
+	int mvInsets[4]{}; // TODO: Rect
+	
+	const char *msName{""};
 };
 
 }; // namespace vgui2

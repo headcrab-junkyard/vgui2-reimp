@@ -1,6 +1,6 @@
 /*
  *	This file is part of OGS Engine
- *	Copyright (C) 2016-2018 BlackPhrase
+ *	Copyright (C) 2016-2018, 2021 BlackPhrase
  *
  *	OGS Engine is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include <Color.h>
+
 #include "vgui2/IImage.h"
 
 namespace vgui2
@@ -38,6 +40,14 @@ public:
 	void SetSize(int wide, int tall) override;
 
 	void SetColor(Color color) override;
+private:
+	Color mColor{};
+	
+	int mnPosX{0};
+	int mnPosY{0};
+	
+	int mnWidth{0};
+	int mnHeight{0};
 };
 
 }; // namespace vgui2

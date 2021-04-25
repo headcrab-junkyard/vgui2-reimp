@@ -1,6 +1,6 @@
 /*
  *	This file is part of OGS Engine
- *	Copyright (C) 2018-2019 BlackPhrase
+ *	Copyright (C) 2018-2019, 2021 BlackPhrase
  *
  *	OGS Engine is free software: you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -23,35 +23,47 @@
 namespace vgui2
 {
 
-EXPOSE_SINGLE_INTERFACE(CLocalize, ILocalize, VGUI_LOCALIZE_INTERFACE_VERSION)
+EXPOSE_SINGLE_INTERFACE(CLocalize, ILocalize, VGUI_LOCALIZE_INTERFACE_VERSION);
 
-bool CLocalize::AddFile(IFileSystem *fileSystem, const char *fileName)
+CLocalize::CLocalize()
 {
-	if(!fileSystem)
+	mpLocStringHead = new SLocalizedString;
+};
+
+CLocalize::~CLocalize()
+{
+	while(mpLocStringHead)
+	{
+		auto pNewHead{mpLocStringHead->mpNext};
+		delete mpLocStringHead;
+		mpLocStringHead = pNewHead;
+	};
+};
+
+bool CLocalize::AddFile(IFileSystem *apFileSystem, const char *asFileName)
+{
+	if(!apFileSystem)
 		return false;
 	
-	if(!fileName || !*fileName)
+	if(!asFileName || !*asFileName)
 		return false;
 	
-	//mvLocFiles.emplace_back(fileName);
-	
-	return false;
+	mvLocFiles.emplace_back(new CLocalizationFile());
+	return true;
 };
 
 void CLocalize::RemoveAll()
 {
 };
 
-wchar_t *CLocalize::Find(char const *tokenName)
+wchar_t *CLocalize::Find(char const *asTokenName)
 {
-/*
-	if(!tokenName || !*tokenName)
+	if(!asTokenName || !*asTokenName)
 		return nullptr; // TODO: ""?
 	
-	auto It{mCurrentLocFile.mTokenValueMap.find(tokenName)};
-	if(It != mCurrentLocFile.mTokenValueMap.end())
-		return It.second.c_str();
-*/
+	auto It{mpCurrentLocFile->mTokenValueMap.find(asTokenName)};
+	if(It != mpCurrentLocFile->mTokenValueMap.end())
+		return It->second;
 	
 	return nullptr; // TODO: ""?
 };
@@ -66,7 +78,7 @@ int CLocalize::ConvertUnicodeToANSI(const wchar_t *unicode, char *ansi, int ansi
 	return 0;
 };
 
-StringIndex_t CLocalize::FindIndex(const char *tokenName)
+StringIndex_t CLocalize::FindIndex(const char *asTokenName)
 {
 	return 0;
 };
@@ -75,36 +87,41 @@ void CLocalize::ConstructString(wchar_t *unicodeOuput, int unicodeBufferSizeInBy
 {
 };
 
-const char *CLocalize::GetNameByIndex(StringIndex_t index)
+const char *CLocalize::GetNameByIndex(StringIndex_t anIndex)
 {
-	return "";
+	return reinterpret_cast<SLocalizedString*>(anIndex)->msName;
 };
 
-wchar_t *CLocalize::GetValueByIndex(StringIndex_t index)
+wchar_t *CLocalize::GetValueByIndex(StringIndex_t anIndex)
 {
-	return nullptr;
+	return reinterpret_cast<SLocalizedString*>(anIndex)->msValue;
 };
 
 StringIndex_t CLocalize::GetFirstStringIndex()
 {
-	return 0;
+	return reinterpret_cast<StringIndex_t>(mpLocStringHead);
 };
 
-StringIndex_t CLocalize::GetNextStringIndex(StringIndex_t index)
+StringIndex_t CLocalize::GetNextStringIndex(StringIndex_t anIndex)
 {
-	return 0;
+	return reinterpret_cast<StringIndex_t>(reinterpret_cast<SLocalizedString*>(anIndex)->mpNext);
 };
 
-void CLocalize::AddString(const char *tokenName, wchar_t *unicodeString, const char *fileName)
+void CLocalize::AddString(const char *asTokenName, wchar_t *unicodeString, const char *asFileName)
 {
+	mpLocStringHead->mpNext = new SLocalizedString(asTokenName, unicodeString, asFileName);
 };
 
-void CLocalize::SetValueByIndex(StringIndex_t index, wchar_t *newValue)
+void CLocalize::SetValueByIndex(StringIndex_t anIndex, wchar_t *newValue)
 {
+	reinterpret_cast<SLocalizedString*>(anIndex)->msValue = newValue;
 };
 
-bool CLocalize::SaveToFile(IFileSystem *fileSystem, const char *fileName)
+bool CLocalize::SaveToFile(IFileSystem *apFileSystem, const char *fileName)
 {
+	if(!apFileSystem)
+		return false;
+	
 	return false;
 };
 
@@ -113,18 +130,20 @@ int CLocalize::GetLocalizationFileCount()
 	return mvLocFiles.size();
 };
 
-const char *CLocalize::GetLocalizationFileName(int index)
+const char *CLocalize::GetLocalizationFileName(int anIndex)
 {
-	return mvLocFiles.at(index).msName.c_str();
+	return mvLocFiles.at(anIndex)->msName.c_str();
 };
 
-const char *CLocalize::GetFileNameByIndex(StringIndex_t index)
+const char *CLocalize::GetFileNameByIndex(StringIndex_t anIndex)
 {
-	return "";
+	return reinterpret_cast<SLocalizedString*>(anIndex)->msFileName;
 };
 
 void CLocalize::ReloadLocalizationFiles()
 {
+	for(auto It : mvLocFiles)
+		It->Reload();
 };
 
 void CLocalize::ConstructString(wchar_t *unicodeOutput, int unicodeBufferSizeInBytes, const char *tokenName, KeyValues *localizationVariables)
