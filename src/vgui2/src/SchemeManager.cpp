@@ -19,6 +19,7 @@
 /// @file
 
 #include "SchemeManager.h"
+#include "Scheme.h"
 
 namespace vgui2
 {
@@ -32,13 +33,13 @@ HScheme CSchemeManager::LoadSchemeFromFile(const char *asFileName, const char *a
 
 void CSchemeManager::ReloadSchemes()
 {
-	for(It : mvSchemes)
+	for(auto It : mvSchemes)
 		It->Reload();
 };
 
 HScheme CSchemeManager::GetDefaultScheme()
 {
-	return mvSchemes.at(0);
+	return -1; // TODO: mvSchemes.at(0);
 };
 
 HScheme CSchemeManager::GetScheme(const char *asTag)

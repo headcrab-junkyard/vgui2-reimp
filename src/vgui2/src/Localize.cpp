@@ -25,6 +25,10 @@ namespace vgui2
 
 EXPOSE_SINGLE_INTERFACE(CLocalize, ILocalize, VGUI_LOCALIZE_INTERFACE_VERSION);
 
+void CLocalizationFile::Reload()
+{
+};
+
 CLocalize::CLocalize()
 {
 	mpLocStringHead = new SLocalizedString;
@@ -99,12 +103,12 @@ wchar_t *CLocalize::GetValueByIndex(StringIndex_t anIndex)
 
 StringIndex_t CLocalize::GetFirstStringIndex()
 {
-	return reinterpret_cast<StringIndex_t>(mpLocStringHead);
+	return -1; // TODO: reinterpret_cast<StringIndex_t>(mpLocStringHead);
 };
 
 StringIndex_t CLocalize::GetNextStringIndex(StringIndex_t anIndex)
 {
-	return reinterpret_cast<StringIndex_t>(reinterpret_cast<SLocalizedString*>(anIndex)->mpNext);
+	return -1; // TODO: reinterpret_cast<StringIndex_t>(reinterpret_cast<SLocalizedString*>(anIndex)->mpNext);
 };
 
 void CLocalize::AddString(const char *asTokenName, wchar_t *unicodeString, const char *asFileName)

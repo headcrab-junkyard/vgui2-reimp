@@ -27,11 +27,13 @@ namespace vgui2
 
 class CScheme : public IScheme
 {
-public:
+public: // IScheme interface methods
 	const char *GetResourceString(const char *stringName) override;
 	IBorder *GetBorder(const char *borderName) override;
 	HFont GetFont(const char *fontName, bool proportional) override;
 	Color GetColor(const char *colorName, Color defaultColor) override;
+public: // Other public methods
+	void Reload();
 };
 
 }; // namespace vgui2

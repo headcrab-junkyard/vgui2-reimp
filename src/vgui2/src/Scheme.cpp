@@ -43,4 +43,9 @@ Color CScheme::GetColor(const char *colorName, Color defaultColor)
 	return {};
 };
 
+void CScheme::Reload()
+{
+	// TODOs
+};
+
 }; // namespace vgui2

@@ -20,6 +20,8 @@
 
 #include "Surface.h"
 
+#include <Color.h>
+
 namespace vgui2
 {
 
