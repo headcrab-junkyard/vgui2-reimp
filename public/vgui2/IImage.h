@@ -20,8 +20,11 @@
 
 #pragma once
 
+//#include <public/Color.h>
+
 #include "VGUI.h"
-#include "Color.h"
+
+class Color;
 
 namespace vgui2
 {
@@ -31,20 +34,20 @@ struct IImage
 	///
 	virtual void Paint() = 0;
 	
-	///
+	/// Set the position of the image
 	virtual void SetPos(int x, int y) = 0;
 	
-	///
-	virtual void GetContentSize(int &wide, int &tall) = 0;
+	/// Get the size of the content
+	virtual void GetContentSize(int &anWidth, int &anHeight) = 0;
 	
 	///
-	virtual void GetSize(int &wide, int &tall) = 0;
+	virtual void GetSize(int &anWidth, int &anHeight) = 0;
 	
-	///
-	virtual void SetSize(int wide, int tall) = 0;
+	/// Set the size of the image
+	virtual void SetSize(int anWidth, int anHeight) = 0;
 	
-	///
-	virtual void SetColor(Color color) = 0;
+	/// Set the draw color
+	virtual void SetColor(Color aColor) = 0;
 };
 
 }; // namespace vgui2

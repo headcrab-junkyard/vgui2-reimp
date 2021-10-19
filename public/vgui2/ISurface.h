@@ -20,9 +20,10 @@
 
 #pragma once
 
+#include <tier1/interface.h>
+
 #include "VGUI.h"
 #include "IHTML.h"
-#include "tier1/interface.h"
 
 #ifdef CreateFont
 #undef CreateFont

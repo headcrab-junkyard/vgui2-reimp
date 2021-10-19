@@ -23,8 +23,8 @@
 #pragma once
 
 #include "VGUI.h"
-#include "Color.h"
 #include "tier1/interface.h"
+#include "public/Color.h"
 
 const char VGUI_SCHEME_INTERFACE_VERSION[] = "VGUI_Scheme009";
 

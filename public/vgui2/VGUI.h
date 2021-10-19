@@ -43,11 +43,11 @@ using wchar_t = unsigned short;
 namespace vgui2
 {
 
-/// handle to an internal vgui panel
-/// this is the only handle to a panel that is valid across dll boundaries
+/// Handle to an internal vgui panel
+/// This is the only handle to a panel that is valid across dll boundaries
 using VPANEL = unsigned int;
 
-/// handles to vgui objects
+/// Handles to vgui objects
 /// NULL values signify an invalid value
 using HContext = int;
 using HScheme = unsigned long;
@@ -58,6 +58,6 @@ using HFont = unsigned long;
 
 const VPANEL NULL_PANEL = 0;
 const HPanel INVALID_PANEL = 0xffffffff;
-const HFont INVALID_FONT = 0; ///< the value of an invalid font handle
+const HFont INVALID_FONT = 0; ///< The value of an invalid font handle
 
 }; // namespace vgui2

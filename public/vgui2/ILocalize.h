@@ -32,7 +32,7 @@ namespace vgui2
 {
 
 using StringIndex_t = unsigned long;
-const StringIndex_t INVALID_STRING_INDEX = (unsigned long)-1;
+const StringIndex_t INVALID_STRING_INDEX = (StringIndex_t)-1;
 
 struct ILocalize : public IBaseInterface
 {
@@ -45,11 +45,11 @@ struct ILocalize : public IBaseInterface
 	///
 	virtual wchar_t *Find(char const *asTokenName) = 0;
 	
-	///
-	virtual int ConvertANSIToUnicode(const char *ansi, wchar_t *unicode, int unicodeBufferSizeInBytes) = 0;
+	/// @param anBufferSize - unicode buffer size (in bytes)
+	virtual int ConvertANSIToUnicode(const char *asANSI, wchar_t *asUnicode, int anBufferSize) = 0;
 	
 	///
-	virtual int ConvertUnicodeToANSI(const wchar_t *unicode, char *ansi, int ansiBufferSize) = 0;
+	virtual int ConvertUnicodeToANSI(const wchar_t *asUnicode, char *asANSI, int anBufferSize) = 0;
 	
 	///
 	virtual StringIndex_t FindIndex(const char *asTokenName) = 0;

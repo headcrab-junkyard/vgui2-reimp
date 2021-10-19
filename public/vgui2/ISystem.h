@@ -20,9 +20,10 @@
 
 #pragma once
 
+#include <tier1/interface.h>
+
 #include "VGUI.h"
 #include "KeyCode.h"
-#include "tier1/interface.h"
 
 #ifdef PlaySound
 #undef PlaySound
@@ -37,10 +38,10 @@ namespace vgui2
 
 struct ISystem : public IBaseInterface
 {
-	///
+	/// Shutdown the system
 	virtual void Shutdown() = 0;
 	
-	///
+	/// Runs a single frame
 	virtual void RunFrame() = 0;
 	
 	///

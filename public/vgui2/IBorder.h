@@ -20,8 +20,9 @@
 
 #pragma once
 
+#include <public/Color.h>
+
 #include "VGUI.h"
-#include "Color.h"
 
 class KeyValues;
 
