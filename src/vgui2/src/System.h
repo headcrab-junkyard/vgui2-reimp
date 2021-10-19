@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include <string>
+
 #include "vgui2/ISystem.h"
 
 namespace vgui2
@@ -77,6 +79,9 @@ public:
 	bool DeleteRegistryKey(const char *keyName) override;
 
 	const char *GetDesktopFolderPath() override;
+private:
+	std::string msCmdLine{""};
+	
 };
 
 }; // namespace vgui2

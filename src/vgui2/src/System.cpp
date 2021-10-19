@@ -130,7 +130,7 @@ bool CSystem::CommandLineParamExists(const char *paramName)
 
 const char *CSystem::GetFullCommandLine()
 {
-	return "";
+	return msCmdLine.c_str();
 };
 
 bool CSystem::GetCurrentTimeAndDate(int *year, int *month, int *dayOfWeek, int *day, int *hour, int *minute, int *second)
