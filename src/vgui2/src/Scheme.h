@@ -20,10 +20,15 @@
 
 #pragma once
 
-#include "vgui2/IScheme.h"
+#include <string>
+#include <unordered_map>
+
+#include <vgui2/IScheme.h>
 
 namespace vgui2
 {
+
+using tColorMap = std::unordered_map<std::string, std::unique_ptr<Color>>;
 
 class CScheme : public IScheme
 {
@@ -34,6 +39,8 @@ public: // IScheme interface methods
 	Color GetColor(const char *colorName, Color defaultColor) override;
 public: // Other public methods
 	void Reload();
+private:
+	tColorMap mColorMap;
 };
 
 }; // namespace vgui2
