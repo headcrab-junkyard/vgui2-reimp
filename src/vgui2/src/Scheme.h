@@ -21,6 +21,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 #include <unordered_map>
 
 #include <vgui2/IScheme.h>
