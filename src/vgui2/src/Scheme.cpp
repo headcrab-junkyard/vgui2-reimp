@@ -40,7 +40,10 @@ HFont CScheme::GetFont(const char *fontName, bool proportional)
 
 Color CScheme::GetColor(const char *colorName, Color defaultColor)
 {
-	return {};
+	if(mColorMap[colorName])
+		return *mColorMap[colorName];
+	
+	return defaultColor;
 };
 
 void CScheme::Reload()
